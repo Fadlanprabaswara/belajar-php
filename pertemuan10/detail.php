@@ -2,8 +2,10 @@
 require 'functions.php';
 
 // ambil id dari url
+$id = $_GET['id'];
 
 // query mahasiswa bedasarkan id
+$mhs = query("SELECT * FROM mahasiswa WHERE id = $id");
 ?>
 
 <!DOCTYPE html>
@@ -19,11 +21,11 @@ require 'functions.php';
 <body>
   <h3>Detail Mahasiswa</h3>
   <ul>
-    <li><img src="image/fadlan.jpg" width="90"></li>
-    <li>NPM : 50420436</li>
-    <li>Nama : Fadlan Prabaswara</li>
-    <li>Email : prabaswarafadlan@gmail.com</li>
-    <li>Jurusan : Informatika</li>
+    <li><img src="image/<?= $mhs['gambar']; ?>" width="90"></li>
+    <li>NPM : <?= $mhs['npm']; ?></li>
+    <li>Nama : <?= $mhs['name']; ?></li>
+    <li>Email : <?= $mhs['email']; ?></li>
+    <li>Jurusan : <?= $mhs['jurusan']; ?></li>
     <li><a href="">ubah</a>|<a href="">hapus</a></li>
     <li><a href="latihan3.php">Kembai ke daftar mahasiswa</a></li>
   </ul>
