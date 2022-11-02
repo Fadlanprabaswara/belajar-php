@@ -1,5 +1,7 @@
 <?php
 
+use LDAP\Result;
+
 function koneksi()
 {
   return mysqli_connect('localhost', 'root', '', 'phpdasar');
@@ -68,7 +70,7 @@ function ubah($data)
   $gambar = htmlspecialchars($data['gambar']);
 
   $query = "UPDATE mahasiswa SET
-              name = '$nama',
+              nama = '$nama',
               npm = '$npm',
               email = '$email',
               jurusan = '$jurusan',
@@ -79,4 +81,25 @@ function ubah($data)
   //mengembalikan nilai
   echo mysqli_error($conn);
   return mysqli_affected_rows($conn);
+}
+
+//menambahkan function cari
+function cari($keyword)
+{
+  $conn = koneksi();
+
+  $query = "SELECT * FROM mahasiswa
+              WHERE 
+              name LIKE '%$keyword%' OR
+              npm LIKE '%$keyword%'
+            ";
+
+  $result = mysqli_query($conn, $query);
+
+  $rows = [];
+  while ($row = mysqli_fetch_assoc($result)) {
+    $rows[] = $row;
+  }
+
+  return $rows;
 }
